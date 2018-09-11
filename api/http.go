@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+
+	"github.com/BruceABeitman/ika/core"
 )
 
 // BuildHTTPServer builds the HTTP server serving the Ika
@@ -16,6 +18,9 @@ func BuildHTTPServer(service core.Service) *http.Server {
 	mux.Handle("/proxy/refresh", proxyRefresh(service))
 	return &http.Server{Addr: ":4242", Handler: BasicAuth(mux)}
 }
+
+const user = "user"
+const pass = "pass"
 
 // BasicAuth ...
 func BasicAuth(handler http.Handler) http.HandlerFunc {
